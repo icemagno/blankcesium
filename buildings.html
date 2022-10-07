@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+    <title>Cesium Branco</title>
+    <link href="Cesium/Widgets/widgets.css" rel="stylesheet">
+    <script src="Cesium/Cesium.js"></script>
+    <script src="jquery.js"></script>
+
+    <style>
+        html, body, #cesiumContainer {
+            width: 100%; height: 100%; margin: 0; padding: 0; overflow: hidden;background-color: #000000;
+        }
+        input[type=text]{
+            width: 30px;
+            height: 10px;
+        }
+        input[type=range] {
+            width: 170px;
+        }
+    </style>
+</head>
+<body>
+<div style="position:relative" id="cesiumContainer"></div>
+<script type="text/javascript">
+	Cesium.Ion.defaultAccessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiIzNTExODVkZC0zNmM4LTQ0NjYtYWU3Ny01MzM2MTg0NjU1Y2UiLCJpZCI6OTM2ODQsImlhdCI6MTY1MjQ0NjY0MH0.Y-B8p9Pm-EQDK-T7n-2ze_Kz74CcyOKy2wXXMsLH-sk";
+
+
+	/*
+	const resource = new Cesium.Resource({
+	   url: 'http://server.com/path/to/resource.json',
+	   queryParameters: {
+		 'access_token': Cesium.Ion.defaultAccessToken
+	   }
+	});
+	*/
+	const proxy = new Cesium.DefaultProxy('http://sisgeodef.defesa.mil.br/heimdal/');
+	Cesium.Ion.defaultServer.proxy = proxy;
+
+	console.log( Cesium.Ion.defaultServer );
+	
+
+	var baseOsmProvider = new Cesium.OpenStreetMapImageryProvider({
+		url : 'https://a.tile.openstreetmap.org/'
+	});				
+	
+	var viewer = new Cesium.Viewer('cesiumContainer',{
+		imageryProvider: baseOsmProvider,
+		timeline: false,
+		skyAtmosphere: false,
+		animation: false,
+		fullscreenButton : false,
+		
+		geocoder : false,
+		homeButton : false,
+		infoBox : false,
+		skyBox : false,
+		selectionIndicator : false,
+		navigationHelpButton : false,
+		shouldAnimate : false,
+	});
+
+	var scene = viewer.scene;
+	var layers = scene.imageryLayers;
+
+	const tileset = viewer.scene.primitives.add(
+	  new Cesium.Cesium3DTileset({
+		url: Cesium.IonResource.fromAssetId(96188),
+	  })
+	);
+
+		
+</script>
+</body>
+</html>

@@ -36,9 +36,10 @@
 	   }
 	});
 	*/
-	const proxy = new Cesium.DefaultProxy('http://sisgeodef.defesa.mil.br/heimdal/');
+	
+	
+	const proxy = new Cesium.DefaultProxy('http://localhost:8080/');
 	Cesium.Ion.defaultServer.proxy = proxy;
-
 	console.log( Cesium.Ion.defaultServer );
 	
 
@@ -64,6 +65,14 @@
 
 	var scene = viewer.scene;
 	var layers = scene.imageryLayers;
+
+
+/*
+	viewer.terrainProvider = new Cesium.CesiumTerrainProvider({
+        url : Cesium.IonResource.fromAssetId(1),
+        requestVertexNormals : true
+    });
+*/
 
 	const tileset = viewer.scene.primitives.add(
 	  new Cesium.Cesium3DTileset({

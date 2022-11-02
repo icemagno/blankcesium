@@ -60,25 +60,13 @@
 	scene.screenSpaceCameraController.inertiaSpin = 0;
 	scene.globe.maximumScreenSpaceError = 1;
 
-		
-	let theStyle = {
-		show: "${POSITION}.z > 0.5",
-		pointSize: 2
-	}
-
-	var tileset = new Cesium.Cesium3DTileset({
-		url: 'pointdata/S23W044/tileset.json',
-		skipLevelOfDetail : true,
+	const mapbox = new Cesium.MapboxImageryProvider({
+		mapId: 'mapbox.streets',
+		accessToken: 'thisIsMyAccessToken',
+		url : 'http://localhost:8080/v1/tile/{z}/{x}/{y}.mvt'
 	});
-
-	tileset.readyPromise.then(function(tileset) {
-		tileset._geometricError = 10000;
-		tileset.style = new Cesium.Cesium3DTileStyle( theStyle );
-	});
-
-	viewer.scene.primitives.add(tileset);	
-	viewer.zoomTo(tileset, new Cesium.HeadingPitchRange(0.0, -90.0, 350000.0));
-
+	
+	scene.imageryLayers.addImageryProvider( mapbox );
 		
 </script>
 </body>
